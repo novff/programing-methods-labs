@@ -29,14 +29,17 @@ def timsort_time(arr):
 def compare_sorts(arr):
     qsort_time(arr)
     timsort_time(arr)
-    print("\n")
+    print("\n\n")
+    
 
 def external_sorting():
 #в моей имплементации используется deepcopy, так что внутренняя и внешняя сортировка будут иметь одинаковый результат
     print("ВНЕШНЯЯ СОРТИРОВКА")
+
     print("сортировка продукта объединения массивов")
     merged_array = readArray("fmerge.txt")
     compare_sorts(merged_array)
+    #readArray("f1.txt") + readArray("f2.txt")
 
     print("сортировка продукта перечисления массивов")
     intersection_array = readArray("fintersect.txt")
