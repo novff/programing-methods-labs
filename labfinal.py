@@ -1,6 +1,7 @@
 import csv
 import copy
 import timeit
+import internal_arrays
 from qsort import *
 from timsort import *
 from datetime import datetime
@@ -25,37 +26,60 @@ def timsort_time(arr):
     t = timeit.Timer(lambda: timsort(a))
     print("Timsort exec took: {}".format(t.timeit(1)))
 
-def main():
-#3.2.1 Внешняя сортировка. 
-#3.2.2 Внутренняя сортировка. 
-    print("ВНУТРЕННЯЯ СОРТИРОВКА")
-    #3.2.2.1 объединение
+def compare_sorts(arr):
+    qsort_time(arr)
+    timsort_time(arr)
+    print("\n")
+
+def external_sorting():
+#в моей имплементации используется deepcopy, так что внутренняя и внешняя сортировка будут иметь одинаковый результат
+    print("ВНЕШНЯЯ СОРТИРОВКА")
     print("сортировка продукта объединения массивов")
-    merged_array = readArray("f1.txt") + readArray("f2.txt")
-    qsort_time(merged_array)
-    timsort_time(merged_array)
-    print("\n")
+    merged_array = readArray("fmerge.txt")
+    compare_sorts(merged_array)
 
-    #3.2.2.2 перечисление
     print("сортировка продукта перечисления массивов")
-    intersection_array = list(set(readArray("f1.txt")).intersection(set(readArray("f2.txt"))))
-    qsort_time(intersection_array)
-    timsort_time(intersection_array)
-    print("\n")
+    intersection_array = readArray("fintersect.txt")
+    #list(set(readArray("f1.txt")).intersection(set(readArray("f2.txt"))))
+    compare_sorts(intersection_array)
 
-    #3.2.2.3 разность
     print("сортировка продукта разности массивов")
-    difference_array = list(set(readArray("f1.txt")).difference(set(readArray("f2.txt"))))
-    qsort_time(difference_array)
-    timsort_time(difference_array)
-    print("\n")
+    difference_array = readArray("fdiff.txt")
+    #list(set(readArray("f1.txt")).difference(set(readArray("f2.txt"))))
+    compare_sorts(difference_array)
 
-    #3.2.2.4 симметричная разность
     print("сортировка продукта симмтеричной разности массивов")
-    symmetric_diff_array = list(set(readArray("f1.txt")).symmetric_difference(set(readArray("f2.txt"))))
-    qsort_time(symmetric_diff_array)
-    timsort_time(symmetric_diff_array)
+    symmetric_diff_array = readArray("fsymmdiff.txt")
+    #list(set(readArray("f1.txt")).symmetric_difference(set(readArray("f2.txt"))))
+    compare_sorts(symmetric_diff_array)
+
+ 
+def internal_sorting():
+    print("ВНУТРЕННЯЯ СОРТИРОВКА")
+    print("сортировка продукта объединения массивов")
+    compare_sorts(internal_arrays.internal_merged)
+    
+    print("сортировка продукта перечисления массивов")
+    compare_sorts(internal_arrays.internal_intersected)
+
+    print("сортировка продукта разности массивов")
+    compare_sorts(internal_arrays.internal_difference)
+
+    print("сортировка продукта симмтеричной разности массивов")
+    compare_sorts(internal_arrays.internal_symmetric_difference )
+
+def main():
+    #internal_sorting
+    t1 = timeit.Timer(lambda: internal_sorting())
+    print("INTERNAL SORTINGS TAKES: ",t1.timeit(1))
+    
     print("\n")
     
+    #external_sorting
+    t2 = timeit.Timer(lambda: external_sorting())
+    print("EXTERNAL SORTINGS TAKES: ", t2.timeit(1))
+
+
 main()
+
     
