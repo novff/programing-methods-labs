@@ -2,6 +2,8 @@ import csv
 import copy
 import timeit
 import internal_arrays
+import internal_matrix
+
 from qsort import *
 from timsort import *
 from datetime import datetime
@@ -25,6 +27,20 @@ def timsort_time(arr):
     a = copy.deepcopy(arr)
     t = timeit.Timer(lambda: timsort(a))
     print("Timsort exec took: {}".format(t.timeit(1)))
+
+def timsort_matrix_time(arr):
+    a = copy.deepcopy(arr)
+    t = timeit.Timer(lambda: timsort_matrix(a))
+    print("Timsort_matrix exec took: {}".format(t.timeit(1)))
+
+def timsort_matrix(arr):
+    for e in arr:
+        timsort(e)
+    timsort(arr)
+
+
+
+
 
 def compare_sorts(arr):
     qsort_time(arr)
@@ -71,9 +87,11 @@ def internal_sorting():
     print("сортировка продукта симмтеричной разности массивов")
     compare_sorts(internal_arrays.internal_symmetric_difference )
 
+
+
 def main():
     #internal_sorting
-    t1 = timeit.Timer(lambda: internal_sorting())
+    '''t1 = timeit.Timer(lambda: internal_sorting())
     print("INTERNAL SORTINGS TAKES: ",t1.timeit(1))
     
     print("\n")
@@ -81,6 +99,10 @@ def main():
     #external_sorting
     t2 = timeit.Timer(lambda: external_sorting())
     print("EXTERNAL SORTINGS TAKES: ", t2.timeit(1))
+    '''
+    
+    print("сортировка матрицы 5000x5000")
+    timsort_matrix_time(internal_matrix.internal_matrix)
 
 
 main()

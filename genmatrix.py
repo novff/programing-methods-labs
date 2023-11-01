@@ -1,6 +1,6 @@
 import random
 
-n = 5000
+n = 2500
 matrix = []
 
 for row in range(n):    
